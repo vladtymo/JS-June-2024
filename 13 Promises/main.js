@@ -162,12 +162,12 @@ async function showUsers() {
     //     .then(users => console.log(users));
 
     // 2 - handle with [await]
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const response = await fetch("https://dummyjson.com/comments");
     console.log(response.status);
 
     const users = await response.json();
     console.log("async/await:", users);
-    document.body.innerHTML += `<p>Active user: ${users[0].email}</p>`;
+    //document.body.innerHTML += `<p>Active user: ${users[0].email}</p>`;
 }
 
 showUsers();
