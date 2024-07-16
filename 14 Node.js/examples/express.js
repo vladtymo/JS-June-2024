@@ -1,10 +1,18 @@
 // ---------- server logic ----------
 
 const fs = require('fs');
+const cors = require('cors');
 
 // connect express module
 const express = require('express'),
     app = express();
+
+app.use(cors()); // allow all
+
+// allow specific origins only
+// app.use(cors({
+//     origin: ['http://127.0.0.1:5500']
+// }));
 
 const hostname = 'localhost'; // 127.0.0.1
 const port = 4400;
@@ -19,6 +27,18 @@ app.get("/api/users", (req, res) => {
 
     // get user from file
     fs.readFile("data/users.json", "utf-8", (err, data) => {
+        if (err)
+            res.status(500).json({ error: err.message });
+        else {
+            res.status(200).json(JSON.parse(data));
+        }
+    });
+});
+
+app.get("/api/products", (req, res) => {
+
+    // get user from file
+    fs.readFile("data/products.json", "utf-8", (err, data) => {
         if (err)
             res.status(500).json({ error: err.message });
         else {
