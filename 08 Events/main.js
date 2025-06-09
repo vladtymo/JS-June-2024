@@ -18,6 +18,8 @@ function showMessage() {
 btn2.addEventListener("click", showMessage);
 btn2.removeEventListener("click", showMessage);
 
+// btn2.removeEventListener("click"); // remove all click handlers
+
 // 3 - using on{event_name} property
 const btn3 = document.getElementById('btn3');
 
@@ -27,24 +29,23 @@ btn3.onmouseenter = () => console.log("Mouse Enter");
 btn3.onmouseleave = () => console.log("Mouse Leave");
 
 btn3.onmousemove = () => {
-    btn3.innerText += "!";
+    if (btn3.style.backgroundColor === "red")
+        btn3.style.backgroundColor = "green";
+    else
+        btn3.style.backgroundColor = 'red';
 }
 
 window.onresize = (e) => document.body.innerHTML += "*";
 
 // ----- [event] parameter contains event information
-btn3.onclick = (event) => {
+btn3.onclick = function (event) {
     console.log(event);
+
+    // this == event.currentTarget
     console.log(event.target); // element that effects the event
-    //event.target.textContent += ")";
+    this.textContent += ".";
 
     console.log("Button 3 clicked!");
-};
-
-// set event hadnler and clear the previous one
-btn3.onclick = (event) => {
-    console.log(event);
-    alert("Button 3 clicked!");
 };
 
 const coordsText = document.querySelector('#coords-text');
@@ -55,11 +56,11 @@ window.onmousemove = (event) => {
 }
 
 window.onkeydown = (e) => {
-    console.log(e);
+    // console.log(e);
     console.log("Key Pressed:", e.keyCode);
 
-    // space code: 32
-    if (e.keyCode === 32) {
+    // if space key pressed
+    if (e.code === "Space") {
         // move hero
         console.log("Bingooo");
     }
